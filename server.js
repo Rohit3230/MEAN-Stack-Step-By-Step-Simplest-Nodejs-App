@@ -5,7 +5,10 @@ const MongoClient = require('mongodb').MongoClient
 
 var db
 
-MongoClient.connect('mongodb://rsn3230:rsn3230@ds047955.mongolab.com:47955/star-wars-quotes', (err, database) => {
+
+// mongodb://Rohit3230:rsn3230@ds047955.mongolab.com:47955/star-wars-quotes
+
+MongoClient.connect('mongodb://zellwk:zellwk@ds047955.mongolab.com:47955/star-wars-quotes', (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(process.env.PORT || 3000, () => {
@@ -13,6 +16,7 @@ MongoClient.connect('mongodb://rsn3230:rsn3230@ds047955.mongolab.com:47955/star-
   })
 })
 
+// app.set('view engine', 'html')
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())

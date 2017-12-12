@@ -13,6 +13,7 @@
     "body-parser": "^1.14.2",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "html": "^1.0.0",
     "mongodb": "^2.2.33"
   },
   "devDependencies": {
