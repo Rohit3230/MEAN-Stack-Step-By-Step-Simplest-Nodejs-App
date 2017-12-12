@@ -13,7 +13,7 @@ update.addEventListener('click', function () {
   })
   .then(response => {
        console.log(response)
-    //  if (response.ok) return response.json()
+      if (response.ok) return response.json()
   })
   .then(data => {
     console.log(data)
