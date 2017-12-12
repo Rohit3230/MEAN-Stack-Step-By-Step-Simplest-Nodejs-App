@@ -6,9 +6,11 @@ const MongoClient = require('mongodb').MongoClient
 var db
 
 
-// mongodb://Rohit3230:rsn3230@ds047955.mongolab.com:47955/star-wars-quotes
+// mongodb://<dbuser>:<dbpassword>@ds137826.mlab.com:37826/node-crud
+// mongodb://zellwk:zellwk@ds047955.mongolab.com:47955/star-wars-quotes
 
-MongoClient.connect('mongodb://zellwk:zellwk@ds047955.mongolab.com:47955/star-wars-quotes', (err, database) => {
+
+MongoClient.connect('mongodb://public:public@ds137826.mlab.com:37826/node-crud', (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(process.env.PORT || 3000, () => {
@@ -26,6 +28,14 @@ app.get('/', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
     if (err) return console.log(err)
     res.render('index.ejs', {quotes: result})
+  })
+})
+
+app.get('/getQuotes', (req, res) => {
+  db.collection('quotes').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    console.log('result---->',result);
+    res.send(result)
   })
 })
 
