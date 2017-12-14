@@ -1,0 +1,211 @@
+<div ng-if="isCourtSpecific " class="liveScoreSpecificCourt" ng-cloak >
+    <table class="liveHeader" width="100%">
+        <tr>
+            <div>
+                <td><img src="https://ap.yogems.com/images/logo_new.png"  ng-click="makeScreenFullSize()" /> &nbsp; <span class="adidasUprisingText">www.yogems.com</span>
+                    </td>
+                    <td><div class="courtNumber" ng-bind-html="liveMatchObj.matchList[0].courtName | toTrusted"></div>
+                        <span class="playerCategoryRound" ng-bind-html="liveMatchDetail.matchInformation | toTrusted"></span>
+                        </td>
+                <!--<td><span class="time">40:00</span></td>-->
+                <td>
+                    &nbsp; <span class="website">Our Partners</span>
+                    <img src="https://ap.yogems.com/images/logo_new.png" />
+                </td>
+            </div>
+        </tr>
+    </table>
+   
+    <table border="1" width="100%" cellpadding="2" cellspacing="2">
+        <tr ng-init="manageTeamView(liveMatchObj.matchList[0].matches, 'team1')">
+            <td width="50%">
+                <span ng-if="checkForWinner(liveMatchDetail) == 'team1'"><img src="https://ap.yogems.com/images/giphy.gif" class="gifImageWinner" /></span>
+                <div ng-if="liveMatchDetail.team1Detail.participants" ng-repeat="player in liveMatchDetail.team1Detail.participants">
+                    
+                    <h2 class="{{checkForWinner(liveMatchDetail) == 'team1' ? 'winnerTeam' : ''}}">
+                    {{showTeamName(player , 'viaParticipantName')}} <span ng-if="player.seed">[{{player.seed}}]</span> 
+                    </h2>
+                    
+                    <!--<p >{{player.schoolName}},&nbsp;{{player.schoolCity}}</p>-->
+                </div> 
+                <div ng-if="liveMatchDetail.team1Detail.teamDetail"> 
+                    <h2 class="{{checkForWinner(liveMatchDetail) == 'team1' ? 'winnerTeam' : ''}}">
+                         {{showTeamName(liveMatchDetail.team1Detail.teamDetail.teamName , 'viaTeamName')}} 
+                    </h2> 
+                    <p ng-if="liveMatchDetail.team1Detail.teamDetail.teamCity">{{liveMatchDetail.team1Detail.teamDetail.teamCity}}</p>
+                </div>  
+                <span ng-if="checkForWinner(liveMatchDetail) == 'team1'"><img src="https://ap.yogems.com/images/giphy.gif" class="gifImageWinner" /></span>
+            </td>
+
+            <td ng-repeat="score in liveMatchDetail.setDetailList" class="{{(score.setScoreList[0].scoreUpdatedFor == 'team1' && $index ==  (liveMatchDetail.setDetailList.length -1)) ? 'currentScoreFontLive' : 'currentScoreFont'  }}" style=" color:  {{score.setScoreList[0].team1Score > score.setScoreList[0].team2Score  ? '#f18f21;' : '' }} ">
+                {{score.setScoreList[0].team1Score}}    
+            </td> 
+        </tr>
+
+        <tr ng-init="manageTeamView(liveMatchObj.matchList[0].matches, 'team2')">
+            <td width="50%">
+                <span ng-if="checkForWinner(liveMatchDetail) == 'team2'"><img src="https://ap.yogems.com/images/giphy.gif" class="gifImageWinner" /></span>
+                <div ng-if="liveMatchDetail.team2Detail.participants" ng-repeat="player in liveMatchDetail.team2Detail.participants">
+                    <h2 class="{{checkForWinner(liveMatchDetail) == 'team2' ? 'winnerTeam' : ''}}">
+                        {{showTeamName(player , 'viaParticipantName')}}
+                         <span ng-if="player.seed">[{{player.seed}}]</span></h2>
+                    <!--<p >{{player.schoolName}},&nbsp;{{player.schoolCity}}</p>-->
+                </div>
+                <div ng-if="liveMatchDetail.team2Detail.teamDetail">
+                    <h2 class="{{checkForWinner(liveMatchDetail) == 'team2' ? 'winnerTeam' : ''}}">
+                        {{showTeamName(liveMatchDetail.team2Detail.teamDetail.teamName , 'viaTeamName')}}
+                         </h2>
+                    <p ng-if="liveMatchDetail.team2Detail.teamDetail.teamCity">{{liveMatchDetail.team2Detail.teamDetail.teamCity}}</p>
+                </div>  
+                <span ng-if="checkForWinner(liveMatchDetail) == 'team2'"><img src="https://ap.yogems.com/images/giphy.gif" class="gifImageWinner" /></span>
+            </td>
+
+            <td ng-repeat="score in liveMatchDetail.setDetailList" class="{{(score.setScoreList[0].scoreUpdatedFor == 'team2' && $index ==  (liveMatchDetail.setDetailList.length -1)) ? 'currentScoreFontLive' : 'currentScoreFont'  }}" style=" color:  {{score.setScoreList[0].team1Score < score.setScoreList[0].team2Score  ? '#f18f21;' : '' }} ">
+                {{score.setScoreList[0].team2Score}}    
+            </td>
+ 
+        </tr> 
+    </table>
+
+
+    <div class="courtLivescoredata" ng-if="!liveMatchDetail.isAnyLiveMatch">
+            <!--<h2 align="center">No Live Matches</h2> -->
+             <div class="middleSection"> 
+                <div class="liveScoreUpcomintEvents upcomingMatchCourtSpecific" style="width:100%"> 
+                    <h2 ng-if="manageUpcomingCourtMatchList(liveMatchObj.matchList[0].matches).length > 0" style="color:#fff;">Upcoming Match</h2> 
+                    <ul style="width: 100%">
+                        <li ng-repeat="matchData in manageUpcomingCourtMatchList(liveMatchObj.matchList[0].matches)">
+                            <div ng-if="((liveMatchObj.matchList[0].matches | filter: {'live': false}).length >= 0 || (liveMatchObj.matchList[0].matches | filter: {'live': 0}).length >= 0) && (matchData.live == false || matchData.live == 0)">
+                                <h2>{{matchData.event.eventName}} &nbsp;<span style="text-transform: capitalize;">&nbsp;#{{matchData.matchserial}}&nbsp;-&nbsp;{{matchData.roundName.toLowerCase()}}</span></h2>
+                                <h3 class="{{matchData.wo==true?'woclass':''}}" style="text-transform: none;color: green;" ng-if="matchData.minutesLeft"
+                                    ng-bind-html="('Walkover Time Left: '+matchData.minutesLeft+' minutes') | toTrusted"></h3>
+                                <h3 class="leftUserName" ng-bind-html="manageTeamPlayersName(matchData.team1.participants) | toTrusted"></h3>
+                                <h4 class="middleText">vs</h4>
+                                <h3 class="rightUserName" ng-bind-html="manageTeamPlayersName(matchData.team2.participants) | toTrusted"></h3>
+                            </div>
+                        </li>
+                        <li ng-if="(liveMatchObj.matchList[0].matches | filter: {'live': false}).length == 0 && (liveMatchObj.matchList[0].matches | filter: {'live': 0}).length == 0 ">
+                            <h2 style="color:#000;">No Upcoming Match</h2>
+                        </li>
+                    </ul> 
+                </div> 
+            </div> 
+        </div>
+
+    
+<!-- 
+    <h3 class="websiteName">www.yogems.com</h3> -->
+</div>
+
+
+
+
+
+
+
+<div style=" margin: 0 10px 0 10px;" ng-if="!isCourtSpecific" ng-cloak>
+    <!--
+        https://www.yogems.com/event/{{tournamentObj.uniqueName}}
+    -->
+    <div style="margin-bottom:15px;"  ng-click="makeScreenFullSize()"><a href="#"><img ng-src="{{liveMatchObj.liveScreenImgPath ? liveMatchObj.liveScreenImgPath : ( liveMatchObj.announcementText.liveScreenImgPath ? liveMatchObj.announcementText.liveScreenImgPath  : 'https://ap.yogems.com/images/banner/plainLiveHeader.jpg' ) }}" style="width:100%;" /></a></div>
+
+    <div class="text-center" ng-if="!liveMatchObj.matchList || liveMatchObj.matchList.length == 0">
+        No Live Record Found For {{tournamentObj.name}}.<br> Please visit again later.<br>
+        <br>
+        <a ng-href="https://www.yogems.com/event/{{tournamentObj.uniqueName}}" class="register">Go To Tournament</a>
+    </div>
+
+
+
+    <div>
+        <div class="courtLivescore" ng-if='liveMatchObj && liveMatchObj.matchList && liveMatchObj.matchList.length'>
+            <ul ng-style="{'width': maxWidth ?  maxWidth : 100+'%'}">
+                <li ng-repeat='court in liveMatchObj.matchList' ng-style="{'width': liveMatchObj.courtWidth+'%'}">
+                    <a ng-href="/liveScore/live/{{tournamentObj.trnmntHash}}{{!isCourtSpecific ? '/'+($index+1) : '/' }}" ng-bind-html="court.courtName | toTrusted"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="courtLivescoredata" ng-if='liveMatchObj && liveMatchObj.matchList && liveMatchObj.matchList.length'>
+            <h2 ng-if="liveMatchObj && liveMatchObj.matchList && liveMatchObj.matchList.length == 0">No Live Matches</h2>
+            <h2 ng-if="liveMatchObj && liveMatchObj.matchList && liveMatchObj.matchList.length > 0 && !isCourtSpecific" class="text-center"><a href="https://www.yogems.com/event/draws/tun?tourUniqName={{tournamentObj.uniqueName}}" target="_blank" style="float: left;background: #fb7e6d;padding: 9px 20px;color: #fff;border-radius: 7px;font-weight: normal;font-size: 18px;">Live Draw</a>
+<a href="http://www.yogems.com/match/{{tournamentObj.uniqueName}}" target="_blank" style="float: right;background: #fb7e6d;padding: 9px 20px;color: #fff;border-radius: 7px;font-weight: normal;font-size: 18px;">Match List</a><span style="margin-top: 7px; display:block;">Live Matches</span></h2>
+            <div ng-if="liveMatchObj && liveMatchObj.matchList && liveMatchObj.matchList.length > 0" class="flexHeight">
+                <ul ng-repeat='court in liveMatchObj.matchList' ng-style="{'width': liveMatchObj.courtWidth+'%'}">
+                    <li ng-if="court.matches">
+                        <div class="{{isCourtSpecific ? 'courtSpecific' : ''}}" ng-repeat="matchData in court.matches">
+                            <div class="{{manageHeightOfLiveMatch(court)}}" ng-if="((court.matches | filter: {'live': true}).length >= 0 || (court.matches | filter: {'live': 1}).length >= 0) && (matchData.live == true || matchData.live == 1)">
+                                <h2>{{matchData.event.eventName}} &nbsp;<span style="text-transform: capitalize;">&nbsp;#{{matchData.matchserial}}&nbsp;-&nbsp;{{matchData.roundName}}</span></h2>
+                                <div style="width: 100%;display: table;" ng-if='matchData.matchWithLiveScore'>
+                                    <div style="vertical-align: middle; display: table-cell;width: 100%;" style="height : (liveMatchObj.isLiveMatchWithScore ? '220px' : 'auto')">
+                                        <table class='table-bordered' style="width:95%; margin:0 auto; margin-bottom:0px; border:0;">
+                                            <tbody>
+                                                <tr class="backgroundColor">
+                                                    <td width="40%" class="border0">
+                                                        <!-- <span ng-if="false"><img src="images/aditya.jpg" class="imagePlayer"></span>-->
+                                                        <h3 class="scoreUserName playerNameFont" ng-bind-html="manageTeamPlayersName(matchData.team1.participants) | toTrusted"></h3>
+                                                    </td>
+                                                    <!--<td width="20%" class="scoreFont" ng-if="isCourtSpecific">
+                                                        <span ng-bind-html="getTeamScore('team1',matchData.setDetailList)  | toTrusted"></span>&nbsp;-&nbsp;
+                                                        <span
+                                                            ng-bind-html="getTeamScore('team2',matchData.setDetailList) | toTrusted"></span>
+                                                    </td>-->
+                                                    <td width="40%" class="border0">
+                                                        <!-- <span ng-if="false"><img src="images/aditya.jpg" class="imagePlayer"></span>  -->
+                                                        <h3 class="scoreUserName playerNameFont" ng-bind-html="manageTeamPlayersName(matchData.team2.participants)  | toTrusted"></h3>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class='table-bordered' style="width:95%; margin:0 auto; margin-bottom:15px; border:0;">
+                                            <tbody>
+                                                <tr ng-repeat='matchScore in matchData.setDetailList'>
+                                                    <td width="50%" style="border-bottom:1px solid #a5a5a5; color : {{checkForScoreUpdation(matchScore) == 'team1' && ($index == matchData.setDetailList.length -1) ? '#f18f21' : ''}}" ng-bind-html="(matchScore.setScoreList && (matchScore.setScoreList[matchScore.setScoreList.length-1]) && (matchScore.setScoreList[matchScore.setScoreList.length-1]).team1Score ? (matchScore.setScoreList[matchScore.setScoreList.length-1]).team1Score : '0') | toTrusted"></td>
+                                                    <td width="50%" style="color : {{checkForScoreUpdation(matchScore) == 'team2' && ($index == matchData.setDetailList.length -1) ? '#f18f21' : ''}}" ng-bind-html="(matchScore.setScoreList && (matchScore.setScoreList[matchScore.setScoreList.length-1]) && (matchScore.setScoreList[matchScore.setScoreList.length-1]).team2Score ? (matchScore.setScoreList[matchScore.setScoreList.length-1]).team2Score : '0') | toTrusted"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div ng-if="!matchData.matchWithLiveScore" style="width: 100%;display: table;">
+                                    <div style="vertical-align: middle; display: table-cell;width: 100%;" style="height : (liveMatchObj.isLiveMatchWithScore ? '220px' : 'auto')">
+                                        <h3 style="width:100%;" ng-bind-html="manageTeamPlayersName(matchData.team1.participants) | toTrusted"></h3>
+                                        <h4 style="text-transform: capitalize;">Vs</h4>
+                                        <h3 style="width:100%;" ng-bind-html="manageTeamPlayersName(matchData.team2.participants) | toTrusted"></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li ng-if="(court.matches | filter: {'live': true}).length == 0 && (court.matches | filter: {'live': 1}).length == 0 ">
+                        <h2>No live Matches</h2>
+                    </li>
+                </ul>
+                <div class="liveScoreUpcomintEvents {{isCourtSpecific ? 'upcomingMatchCourtSpecific' : ''}} " style="width:100%">
+                    <h2 ng-if="liveMatchObj.matchList.length == 0">No {{isCourtSpecific ? 'Next Match' : 'Upcoming Matches'}} </h2>
+                    <h2 ng-if="liveMatchObj.matchList.length > 0">{{isCourtSpecific ? 'Next Match' : 'Upcoming Matches'}} </h2>
+                    <ul ng-repeat="court in liveMatchObj.matchList" ng-style="{'width': liveMatchObj.courtWidth+'%'}">
+                        <li ng-repeat="matchData in manageUpcomingCourtMatchList(court.matches)">
+                            <div ng-if="((court.matches | filter: {'live': false}).length >= 0 || (court.matches | filter: {'live': 0}).length >= 0) && (matchData.live == false || matchData.live == 0)">
+                                <h2>{{matchData.event.eventName}} &nbsp;<span style="text-transform: capitalize;">&nbsp;#{{matchData.matchserial}}&nbsp;-&nbsp;{{matchData.roundName.toLowerCase()}}</span></h2>
+                                <h3 class="{{matchData.wo==true?'woclass':''}}" style="text-transform: none;color: green;" ng-if="matchData.minutesLeft"
+                                    ng-bind-html="('Walkover Time Left: '+matchData.minutesLeft+' minutes') | toTrusted"></h3>
+                                <h3 class="leftUserName" ng-bind-html="manageTeamPlayersName(matchData.team1.participants) | toTrusted"></h3>
+                                <h4 class="middleText">vs</h4>
+                                <h3 class="rightUserName" ng-bind-html="manageTeamPlayersName(matchData.team2.participants) | toTrusted"></h3>
+                            </div>
+                        </li>
+                        <li ng-if="(court.matches | filter: {'live': false}).length == 0 && (court.matches | filter: {'live': 0}).length == 0 ">
+                            <h2>No Upcoming Matches</h2>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
