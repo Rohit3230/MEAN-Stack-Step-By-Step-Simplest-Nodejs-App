@@ -9,37 +9,44 @@
         <div class="col-md-12 col-lg-12"> 
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">YoGems Live Screen Sections</h3>
+                    <h3 class="panel-title">Put Your Name with Quotes.</h3>
                 </div> 
                 <div class="panel-body">
                     <form role="form" name="myForm">
                         <fieldset>
                             <div class="form-group">
-                                <div class="col-lg-10">
-                                    <input class="form-control" placeholder="Enter Tournament Hash" name="tournamentHash" type="text" ng-model="tournamentHash" autofocus>
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                        <input class="form-control" placeholder="Enter Your Name..." name="tournamentHash" type="text" ng-model="mainObj.userName" autofocus>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" placeholder="Enter Your Quotes..." name="tournamentHash" type="text" ng-model="mainObj.userQuotes" autofocus>    
+                                    </div> 
                                 </div>
-                                <div class="col-lg-2">
-                                    <button type="btn" class="btn" ng-click="goOnSelectedSection('liveScreen', tournamentHash)">Show Live Match</button>
+                                <div class="col-lg-12">
+                                    <br>
+                                    <button type="btn" align="right" class="btn" ng-click="postMyQuotes()">Post my Quotes</button>
                                 </div>
-                                <br>
                                 <br> 
                             </div> 
-                            <!--<div class="form-group">
-                                <div class="col-lg-10">
-                                    <input class="form-control" placeholder="Enter Tournament Hash" name="email" type="text" ng-model="user.name" autofocus>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="btn" class="btn" ng-click="">Show Match Screen</button>
-                                </div>
-                                <br>
-                                <br> 
-                            </div> -->
-                            <!--<input type="submit" class="btn btn-lg btn-success btn-block" value="Login">-->
                         </fieldset>
-                    </form>
-              
+                    </form> 
                 </div>
             </div>
+
+            <div class="login-panel panel panel-default" ng-if="mainObj.quotesArray && mainObj.quotesArray.length > 0">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quotes List.</h3>
+                </div> 
+                <div class="panel-body">
+                     <ul>
+                         <li ng-repeat="quotes in mainObj.quotesArray">
+                             {{quotes.userName}}--{{quotes.userQuotes}}
+                         </li>
+                     </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

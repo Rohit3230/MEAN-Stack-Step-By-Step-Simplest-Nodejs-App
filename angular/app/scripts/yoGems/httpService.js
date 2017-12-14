@@ -10,7 +10,10 @@ angular.module('sbAdminApp')
         this.getTournamentDetails = function(tourUniqName){return DOMAIN+"user/tournament/?eventName="+tourUniqName;}
         this.getTournamentDetailsByTournamentHash = function(tournamentHash){return DOMAIN+"admin/tournament/?tournamentHash="+tournamentHash;}
         this.gitlivematch = function(tournamentHash){return DOMAIN+'user/match/liveAndUpcoming/?tournamentHash='+tournamentHash;}
-         
+
+
+
+        this.getUsersQuotes = function(){return DOMAIN+"getQuotes"}      
 
         this.isError =  function (response) {
             var str = response.data;

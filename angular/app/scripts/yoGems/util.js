@@ -5,15 +5,16 @@
             function ($rootScope, $window, $http, $filter, $location) {
                 return {
                     getBaseUrl: function () {
-                        var url = "https://api.yogems.com/api/";
+                        // var url = "https://api.yogems.com/api/";
+                        var url = 'http://localhost:3000/'
                         // var url="https://api.yogems.in/api/";
                         // var url = "http://192.168.0.39:4000/api/";
                         // var url="https://api.yogems.net/api/";
                         //var url = "http://localhost:4000/api/"
                         //var url = "http://10.99.100.37:4000/api/" 
-                        var version = "v0/";
-                        var baseurl = url + version;
-                        return baseurl;
+                        // var version = "v0/";
+                        // var baseurl = url + version;
+                        return url;
                     },
  
                     getWordPressBaseUrl: function () /* for wordpress login baseurl, please change according to your current url*/ {

@@ -23,7 +23,7 @@ angular
       events:true,
     });
 
-     $urlRouterProvider.otherwise('/live/');
+     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
       .state('dashboard', {
