@@ -5,11 +5,6 @@ const MongoClient = require('mongodb').MongoClient
 
 var db
 
-
-// mongodb://<dbuser>:<dbpassword>@ds137826.mlab.com:37826/node-crud
-// mongodb://zellwk:zellwk@ds047955.mongolab.com:47955/star-wars-quotes
-
-
 MongoClient.connect('mongodb://public:public@ds137826.mlab.com:37826/node-crud', (err, database) => {
   if (err) return console.log(err)
   db = database
