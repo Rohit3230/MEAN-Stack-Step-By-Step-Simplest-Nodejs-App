@@ -81,14 +81,14 @@ angular
       .state('home',{
         url:'/home',
         controller: 'yoGemsHomeScreenCtrl',
-        templateUrl:'views/yoGems/pages/yoGemsLiveHomeScreen.html',
+        templateUrl:'views/yoGems/pages/homePage.html',
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
               name:'sbAdminApp',
               files:[
               //'scripts/controllers/main.js',
-              'scripts/yoGems/controllers/yoGemsLiveHomeScreen.js',
+              'scripts/yoGems/controllers/homePage.js',
               // 'scripts/directives/timeline/timeline.js',
               // 'scripts/directives/notifications/notifications.js',
               // 'scripts/directives/chat/chat.js',

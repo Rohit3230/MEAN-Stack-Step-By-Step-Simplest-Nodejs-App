@@ -7,13 +7,11 @@ angular.module('sbAdminApp')
         var thisInstance = this;
         var instance = this;
         var DOMAIN = helper.getBaseUrl();
-        this.getTournamentDetails = function(tourUniqName){return DOMAIN+"user/tournament/?eventName="+tourUniqName;}
-        this.getTournamentDetailsByTournamentHash = function(tournamentHash){return DOMAIN+"admin/tournament/?tournamentHash="+tournamentHash;}
-        this.gitlivematch = function(tournamentHash){return DOMAIN+'user/match/liveAndUpcoming/?tournamentHash='+tournamentHash;}
 
 
 
-        this.getUsersQuotes = function(){return DOMAIN+"getQuotes"}      
+        this.getUsersQuotes = function(){return DOMAIN+"getQuotes"} 
+        this.postUsersQuotes = function(){return DOMAIN+"quotes"}     
 
         this.isError =  function (response) {
             var str = response.data;

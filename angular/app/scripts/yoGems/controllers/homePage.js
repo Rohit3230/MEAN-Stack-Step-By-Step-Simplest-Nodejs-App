@@ -11,21 +11,36 @@ angular.module('sbAdminApp')
         function($scope, $state, $location, helper, httpService) {
 
         $scope.util = helper;
-        var header = { 'token': '833d5b2dee8eb599e3e49805dba258t7', 'Content-Type': 'application/json', 'Accept': 'application/json' };
+        var header = {'Content-Type': 'application/json', 'Accept': 'application/json' };
         $scope.mainObj = {};
         $scope.mainObj.quotesList = [];
 
         $scope.postMyQuotes = function(){
             $scope.mainObj.apiStatus = 'waiting';
-            if(!$scoe.mainObj.userName){
-                $scope.mainObj.apiStatus = 'needValidate';
-                
-            }else if(!$scope.mainObj.userQuotes){
-                $scope.mainObj.apiStatus = 'needValidate';
-                
+            if(!$scope.mainObj.name){
+                $scope.mainObj.apiStatus = 'Please enter name of the user.';
+            }else if(!$scope.mainObj.quote){
+                $scope.mainObj.apiStatus = 'Please enter quote of the user.';
             }else{
 
             }
+            
+            var requiredObj = {
+                            'name': $scope.mainObj.name,
+                            'quote': $scope.mainObj.quote
+                            }
+
+            httpService.post(httpService.postUsersQuotes(), header ,JSON.stringify(requiredObj))
+            .then(function (response) {
+                if (!$scope.util.isNullOrEmpty(response)) {  
+                    $scope.getQuotesList();
+                    $scope.mainObj.apiStatus = 'success';
+                }else{
+                  $scope.mainObj.apiStatus = 'failed';
+                }
+            }, function (error) {
+               $scope.mainObj.apiStatus = 'failed';
+            });
 
         };
 
@@ -33,12 +48,12 @@ angular.module('sbAdminApp')
             httpService.get(httpService.getUsersQuotes() , header)
             .then(function (response) {
                 if (!$scope.util.isNullOrEmpty(response)) {  
-                    $scope.mianObj.quotesList = response;
+                    $scope.mainObj.quotesList = response.data;
                 }else{
-                  $scope.mianObj.quotesList = [];
+                  $scope.mainObj.quotesList = [];
                 }
             }, function (error) {
-               $scope.mianObj.quotesList = [];
+               $scope.mainObj.quotesList = [];
             });
         };
 
