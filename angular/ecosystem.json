@@ -1,6 +1,0 @@
-{
-    "name": "live-scoring-app", //this is optional
-    "script": "grunt", // the script that will be run
-    "args": ["server"] //argument of the script
-}
-
