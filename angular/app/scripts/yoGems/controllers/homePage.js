@@ -26,7 +26,7 @@ angular.module('sbAdminApp')
             }else{
 
             }
-            
+             
             var requiredObj = {
                             'name': $scope.mainObj.name,
                             'quote': $scope.mainObj.quote
@@ -69,7 +69,7 @@ angular.module('sbAdminApp')
             }, function (error) {
                $scope.mainObj.apiStatus = 'failed';
             });
-        };
+        }; 
 
         $scope.getQuotesList = function(){ 
             $scope.mainObj.getListAPIStatus = 'waiting';
