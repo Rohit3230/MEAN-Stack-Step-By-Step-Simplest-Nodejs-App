@@ -25,6 +25,7 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -69,6 +70,7 @@ app.put('/quotes', (req, res) => {
 })
 
 app.delete('/quotes', (req, res) => {
+  console.log('delete req-->',req);
   db.collection('quotes').findOneAndDelete({name: req.body.name}, (err, result) => {
     if (err) return res.send(500, err)
     res.send('A darth vadar quote got deleted')

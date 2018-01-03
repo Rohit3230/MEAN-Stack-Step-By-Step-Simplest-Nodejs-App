@@ -19,8 +19,10 @@ angular.module('sbAdminApp')
             $scope.mainObj.apiStatus = 'waiting';
             if(!$scope.mainObj.name){
                 $scope.mainObj.apiStatus = 'Please enter name of the user.';
+                return false;
             }else if(!$scope.mainObj.quote){
                 $scope.mainObj.apiStatus = 'Please enter quote of the user.';
+                return false;
             }else{
 
             }
@@ -35,6 +37,7 @@ angular.module('sbAdminApp')
                 if (!$scope.util.isNullOrEmpty(response)) {  
                     $scope.getQuotesList();
                     $scope.mainObj.apiStatus = 'success';
+                     $scope.mainObj = {};
                 }else{
                   $scope.mainObj.apiStatus = 'failed';
                 }
@@ -44,16 +47,44 @@ angular.module('sbAdminApp')
 
         };
 
+
+        $scope.deleteMyQuote = function(quotesObject){
+            
+            var requiredObj = {
+                            'name': quotesObject.name,
+                            'quote': quotesObject.quote,
+                            '_id':quotesObject.id
+                        }
+                        console.log(requiredObj);
+
+            httpService.delete(httpService.deleteUsersQuotes(), header ,JSON.stringify(requiredObj))
+            .then(function (response) {
+                if (!$scope.util.isNullOrEmpty(response)) {  
+                    $scope.getQuotesList();
+                    $scope.mainObj.apiStatus = 'success';
+                     $scope.mainObj = {};
+                }else{
+                  $scope.mainObj.apiStatus = 'failed';
+                }
+            }, function (error) {
+               $scope.mainObj.apiStatus = 'failed';
+            });
+        };
+
         $scope.getQuotesList = function(){ 
+            $scope.mainObj.getListAPIStatus = 'waiting';
             httpService.get(httpService.getUsersQuotes() , header)
             .then(function (response) {
                 if (!$scope.util.isNullOrEmpty(response)) {  
                     $scope.mainObj.quotesList = response.data;
+                    $scope.mainObj.getListAPIStatus = 'success';
                 }else{
                   $scope.mainObj.quotesList = [];
+                  $scope.mainObj.getListAPIStatus = 'failed';
                 }
             }, function (error) {
                $scope.mainObj.quotesList = [];
+               $scope.mainObj.getListAPIStatus = 'failed';
             });
         };
 

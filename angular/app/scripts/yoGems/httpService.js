@@ -11,7 +11,8 @@ angular.module('sbAdminApp')
 
 
         this.getUsersQuotes = function(){return DOMAIN+"getQuotes"} 
-        this.postUsersQuotes = function(){return DOMAIN+"quotes"}     
+        this.postUsersQuotes = function(){return DOMAIN+"quotes"}
+        this.deleteUsersQuotes = function(){return DOMAIN+"quotes"}     
 
         this.isError =  function (response) {
             var str = response.data;
@@ -103,6 +104,7 @@ angular.module('sbAdminApp')
                 header = header ? header : {};
                 header.Accept = 'application/json';
                 header['Content-Type'] = 'application/json'; 
+                // header["Access-Control-Allow-Methods"]= "GET, POST, OPTIONS, PUT, DELETE"
 
 
                 $http({
