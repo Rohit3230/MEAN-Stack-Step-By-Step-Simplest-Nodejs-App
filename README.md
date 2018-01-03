@@ -14,6 +14,12 @@ How to use:-
 Will update soon once all working will done.
 
 
+After everything working urls will be:-
+1. With Jade integration
+    http://localhost:3000/
+2. With Angular integration
+    http://localhost:50005/home
+
 
 Imp. Links about all code:-
 
