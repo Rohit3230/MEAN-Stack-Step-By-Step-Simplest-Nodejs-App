@@ -1,16 +1,13 @@
 <link rel="stylesheet" href="../../styles/homePage.css" />
- 
+ <br> <br>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-lg-12"> 
+    <div class="row"> 
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Put Your Name with Quotes.</h3>
                 </div> 
-                <div class="panel-body">
-                    <form role="form" name="myForm">
-                        <fieldset>
+                <div class="panel-body"> 
                             <div class="form-group">
                                 <div class="col-lg-12">
                                     <div class="col-lg-6">
@@ -28,22 +25,17 @@
                                     <span ng-if="mainObj.apiStatus != 'waiting' && mainObj.apiStatus != 'success'" style="color:red;">
                                        <br> {{mainObj.apiStatus}}
                                     </span>
-                                </div>
-                                <br> 
-                            </div> 
-                        </fieldset>
-                    </form> 
+                                </div> 
+                            </div>   
                 </div>
             </div>
 
             <div class="login-panel panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">Quotes List.</h3>
-                </div> 
-                <div ng-if="mainObj.getListAPIStatus == 'waiting'" align="center">
-                    <img  style="width: 100px;" 
-                         src="https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif" />
-                </div>
+                </div>  
+                    <img  style="width: 100px;"  ng-if="mainObj.getListAPIStatus == 'waiting'" align="center"
+                         src="https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif" /> 
                 
 
                 <div class="panel-body" ng-if="mainObj.getListAPIStatus == 'success'">
@@ -63,14 +55,11 @@
                         </td>
                     </tr> 
                     </table> 
-                </div>
-                <div class="panel-body" ng-if="mainObj.getListAPIStatus == 'failed'">
-                    <p>
+                </div> 
+                    <p class="panel-body" ng-if="mainObj.getListAPIStatus == 'failed'"> 
                         Be the first for put your quote.
-                    </p>
-                </div>
+                    </p> 
             </div> 
-
-        </div>
+ 
     </div>
 </div>
