@@ -1,29 +1,27 @@
 <link rel="stylesheet" href="../../styles/homePage.css" />
- <br> <br>
+ <br>  
 
 <div class="container">
     <div class="row"> 
             <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Put Your Name with Quotes.</h3>
+                <div class="panel-heading panel-title">
+                     Put Your Name with Quotes...
                 </div> 
                 <div class="panel-body"> 
-                            <div class="form-group">
-                                <div class="col-lg-12">
+                            <div class="form-group"> 
                                     <div class="col-lg-6">
                                         <input class="form-control" placeholder="Enter Your Name..." name="tournamentHash" type="text" ng-model="mainObj.name" autofocus>
                                     </div>
                                     <div class="col-lg-6">
                                         <input class="form-control" placeholder="Enter Your Quotes..." name="tournamentHash" type="text" ng-model="mainObj.quote" autofocus>    
-                                    </div> 
-                                </div>
-                                <div class="col-lg-12">
-                                    <br>
+                                    </div>  
+                                <div class="col-lg-12" style="    padding-top: 20px;">
+                                    
                                     <button type="btn" align="right" class="btn" ng-click="postMyQuotes()">Post my Quotes</button>
                                     
                                     <img ng-if="mainObj.apiStatus == 'waiting'" style="width: 100px;" src="https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif" />
-                                    <span ng-if="mainObj.apiStatus != 'waiting' && mainObj.apiStatus != 'success'" style="color:red;">
-                                       <br> {{mainObj.apiStatus}}
+                                    <span ng-if="mainObj.apiStatus != 'waiting' && mainObj.apiStatus != 'success'" style="color:red; padding-top: 20px;">
+                                        {{mainObj.apiStatus}}
                                     </span>
                                 </div> 
                             </div>   
@@ -31,15 +29,14 @@
             </div>
 
             <div class="login-panel panel panel-default" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">Quotes List.</h3>
-                </div>  
+                <p class="panel-heading panel-title">
+                  Quotes List
+                </p>  
                     <img  style="width: 100px;"  ng-if="mainObj.getListAPIStatus == 'waiting'" align="center"
                          src="https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif" /> 
                 
-
-                <div class="panel-body" ng-if="mainObj.getListAPIStatus == 'success'">
-                    <table>
+ 
+                    <table ng-if="mainObj.getListAPIStatus == 'success'">
                     <tr>
                         <th>Index</th>
                         <th>User Name</th>
@@ -54,8 +51,7 @@
                             <button type="btn" class="btn button button3" ng-click="deleteMyQuote(quotes)"><i class="fa fa-trash-o" aria-hidden="true" ></i>Delete</button>
                         </td>
                     </tr> 
-                    </table> 
-                </div> 
+                    </table>  
                     <p class="panel-body" ng-if="mainObj.getListAPIStatus == 'failed'"> 
                         Be the first for put your quote.
                     </p> 
