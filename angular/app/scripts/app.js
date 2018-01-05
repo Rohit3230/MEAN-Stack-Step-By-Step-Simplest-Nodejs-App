@@ -11,7 +11,7 @@ angular
   .module('sbAdminApp', [
     'oc.lazyLoad',
     'ui.router',
-    'FBAngular',
+    //'FBAngular',
     //'ui.bootstrap',
     //'angular-loading-bar',
   ])
