@@ -11,7 +11,10 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
-
+  var serveStatic = require('serve-static');
+ 
+  var serveIndex = require('serve-index');
+  
   // Time how long tasks take. Can help when optimizing build times 
   var modRewrite = require('connect-modrewrite');
   require('time-grunt')(grunt);
@@ -55,14 +58,25 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
+          middleware: function(connect) {
+            return [
+              serveStatic('.tmp'),
+              connect().use('/bower_components', serveStatic('./bower_components')),
+              serveStatic(config.app)
+            ];
+          }
+        }
       }
+      // livereload: {
+      //   options: {
+      //     livereload: '<%= connect.options.livereload %>'
+      //   },
+      //   files: [
+      //     '<%= yeoman.app %>/{,*/}*.html',
+      //     '.tmp/styles/{,*/}*.css',
+      //     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+      //   ]
+      // }
     },
 
     // The actual grunt server settings
@@ -89,12 +103,12 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               modRewrite(['^[^\\.]*$ /index.html [L]']),
-              connect.static('.tmp'),
+              serveIndex('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveIndex('./bower_components')
               ),
-              connect.static(appConfig.app)
+              serveIndex(appConfig.app)
             ];
           }
         }
@@ -104,13 +118,13 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect.static('test'),
+              serveIndex('.tmp'),
+              serveIndex('test'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveIndex('./bower_components')
               ),
-              connect.static(appConfig.app)
+              serveIndex(appConfig.app)
             ];
           }
         }
@@ -122,12 +136,12 @@ module.exports = function (grunt) {
 	        middleware: function (connect) {
 	            return [
 	                modRewrite(['^[^\\.]*$ /index.html [L]']),
-	                connect.static('<%= yeoman.dist %>'),
+	                serveIndex('<%= yeoman.dist %>'),
 	                connect().use(
 	                    '/bower_components',
-	                    connect.static('./bower_components')
+	                    serveIndex('./bower_components')
 	                ),
-	                connect.static(appConfig.dist)
+	                serveIndex(appConfig.dist)
             ];
 	        }
 
@@ -392,9 +406,9 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
+   // if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
-    } 
+   // } 
 
     grunt.task.run([
       'clean:server',
